@@ -25,7 +25,7 @@ This is a repo for my implementations of various data structures in C.
         </ul>
       </td>
       <td><a href="linked-list/main.c">link</a>
-      <td><a href="Work in progress">link</a>
+      <td>Work in progress
 </td>
     </tr>
   </tbody>
