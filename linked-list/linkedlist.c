@@ -18,12 +18,12 @@ typedef struct linked_list
 size_t ll_count(const linked_list *list)
 {
     /* Return the length of a linked list */
-    if (!list)
+    if (list == NULL)
         return 0;
 
     size_t length = 0;
     ll_node *current = list->head;
-    while (current)
+    while (current != NULL)
     {
         length++;
         current = current->next;
@@ -34,7 +34,7 @@ size_t ll_count(const linked_list *list)
 int ll_delete(linked_list *list, int value)
 {
     /* Delete a node with the defined value */
-    if (!list || !list->head)
+    if (list == NULL || list->head == NULL)
         return 0;
 
     ll_node *current = list->head;
@@ -53,7 +53,7 @@ int ll_delete(linked_list *list, int value)
         return 1;
     }
 
-    while (current)
+    while (current != NULL)
     {
         if (current->data == value)
         {
@@ -73,7 +73,7 @@ static ll_node *create_node(int value)
 {
     /* Create and return a pointer on a new node with the defined value */
     ll_node *new = malloc(sizeof(*new));
-    if (!new)
+    if (new == NULL)
         return NULL; /* malloc has failed */
     new->data = value;
     new->next = NULL;
@@ -84,7 +84,7 @@ linked_list *ll_create(void)
 {
     /* Create a linked list */
     linked_list *list = malloc(sizeof(*list));
-    if (!list)
+    if (list == NULL)
         return NULL;
 
     list->head = NULL;
@@ -95,11 +95,11 @@ linked_list *ll_create(void)
 static ll_node *find_node(const linked_list *list, int value)
 {
     /* Find node with the defined value and return pointer to it */
-    if (!list)
+    if (list == NULL)
         return NULL;
 
     ll_node *current = list->head;
-    while (current)
+    while (current != NULL)
     {
         if (current->data == value)
             return current;
@@ -111,13 +111,13 @@ static ll_node *find_node(const linked_list *list, int value)
 void ll_clear(linked_list *list)
 {
     /* Clear the list (keep it) and free all nodes */
-    if (!list)
+    if (list == NULL)
         return;
 
     ll_node *current = list->head;
     ll_node *next;
 
-    while (current)
+    while (current != NULL)
     {
         next = current->next;
         free(current);
@@ -131,7 +131,7 @@ void ll_clear(linked_list *list)
 void ll_destroy(linked_list **list)
 {
     /* Completely free memory and delete linked list container  */
-    if (!list || !*list)
+    if (list == NULL || *list == NULL)
         return;
 
     ll_clear(*list);
@@ -142,7 +142,7 @@ void ll_destroy(linked_list **list)
 void print_linked_list(linked_list *list)
 {
     /* Prints out linked list */
-    if (!list)
+    if (list == NULL)
     {
         printf("List is NULL\n");
         return;
@@ -150,14 +150,14 @@ void print_linked_list(linked_list *list)
 
     ll_node *current = list->head;
 
-    if (!current)
+    if (current == NULL)
     {
         printf("List is empty\n");
         return;
     }
 
     printf("Linked list: ");
-    while (current)
+    while (current != NULL)
     {
         printf("%d => ",
                current->data);
@@ -169,10 +169,10 @@ void print_linked_list(linked_list *list)
 void ll_insert_at_head(linked_list *list, int value)
 {
     /* Insert a node with the defined value at the head of the list */
-    if (!list)
+    if (list == NULL)
         return;
     ll_node *node = create_node(value);
-    if (!node)
+    if (node == NULL)
         return;
     node->next = list->head;
     list->head = node;
@@ -184,10 +184,10 @@ void ll_insert_at_head(linked_list *list, int value)
 void ll_insert_at_tail(linked_list *list, int value)
 {
     /* Insert a node with the defined value at the tail of the list */
-    if (!list)
+    if (list == NULL)
         return;
     ll_node *node = create_node(value);
-    if (!node)
+    if (node == NULL)
         return;
     if (list->head == NULL)
         list->head = node;
@@ -201,15 +201,15 @@ int ll_insert_after(linked_list *list, int after_value, int new_value)
 {
     /* Insert a node with the defined value after the node with specified value */
 
-    if (!list)
+    if (list == NULL)
         return 0;
 
     ll_node *node_after_insert = find_node(list, after_value);
-    if (!node_after_insert)
+    if (node_after_insert == NULL)
         return 0;
 
     ll_node *node_to_insert = create_node(new_value);
-    if (!node_to_insert)
+    if (node_to_insert == NULL)
         return 0;
 
     node_to_insert->next = node_after_insert->next;
